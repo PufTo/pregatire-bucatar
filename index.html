@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#173e35" />
+  <meta name="description" content="Învață pentru evaluarea competențelor profesionale de bucătar, cu întrebări explicate și simulări de examen." />
+  <meta property="og:title" content="Pregătire Bucătar – Exersează cu încredere" />
+  <meta property="og:description" content="146 de întrebări, explicații și simulări de examen, gratuit și în limba română." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <title>Pregătire Bucătar · Învață și exersează</title>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <button class="brand" type="button" data-action="home" aria-label="Pagina principală">
+        <span class="brand-icon" aria-hidden="true">✦</span>
+        <span>Pregătire <strong>Bucătar</strong></span>
+      </button>
+      <span class="header-mark">GRATUIT · ÎN ROMÂNĂ</span>
+    </div>
+  </header>
+  <main id="app" class="container" aria-live="polite"></main>
+  <footer class="site-footer container">
+    <span>Învață, exersează și pregătește-te în ritmul tău.</span>
+    <button type="button" data-action="sources">Surse și informații</button>
+  </footer>
+  <nav class="bottom-nav" aria-label="Navigare principală">
+    <button type="button" data-action="home" id="nav-home"><span aria-hidden="true">⌂</span><small>Acasă</small></button>
+    <button type="button" data-action="toc" id="nav-toc"><span aria-hidden="true">☷</span><small>Cuprins</small></button>
+    <button type="button" data-action="learn-menu" id="nav-learn"><span aria-hidden="true">▤</span><small>Învățare</small></button>
+    <button type="button" data-action="exam-menu" id="nav-exam"><span aria-hidden="true">◷</span><small>Examen</small></button>
+    <button type="button" data-action="mistakes-menu" id="nav-mistakes"><span aria-hidden="true">↺</span><small>Repetă</small></button>
+  </nav>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/js/questions.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
