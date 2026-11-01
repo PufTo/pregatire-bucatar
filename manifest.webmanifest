@@ -2,6 +2,7 @@
   "name": "Pregătire Bucătar – Examen și învățare",
   "short_name": "Bucătar",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f8f8f2",
   "theme_color": "#173e35",

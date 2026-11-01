@@ -14,6 +14,7 @@
   <title>Pregătire Bucătar · Învață și exersează</title>
 </head>
 <body>
+  <a class="skip-link" href="#app">Sari la conținut</a>
   <header class="app-header">
     <div class="header-inner">
       <button class="brand" type="button" data-action="home" aria-label="Pagina principală">
@@ -23,7 +24,8 @@
       <span class="header-mark">GRATUIT · ÎN ROMÂNĂ</span>
     </div>
   </header>
-  <main id="app" class="container" aria-live="polite"></main>
+  <div class="container app-status"><p id="storage-status" role="status" hidden></p><p id="offline-status" role="status"></p><button class="btn btn-soft" id="update-app" data-action="update-app" hidden>Actualizează aplicația</button></div>
+  <main id="app" class="container" tabindex="-1"><p>Se încarcă întrebările… Dacă mesajul rămâne, reîncarcă pagina când ai internet.</p><noscript>Activează JavaScript în browser pentru a folosi chestionarele.</noscript></main>
   <footer class="site-footer container">
     <span>Învață, exersează și pregătește-te în ritmul tău.</span>
     <button type="button" data-action="sources">Surse și informații</button>
@@ -37,6 +39,7 @@
   </nav>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="assets/js/questions.js"></script>
+  <script src="assets/js/logic.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>

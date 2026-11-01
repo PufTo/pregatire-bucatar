@@ -22,13 +22,16 @@ pregatire-bucatar/
 ├── assets/
 │   ├── css/style.css            # Interfață responsive
 │   ├── js/app.js                # Navigare, teste, progres
+│   ├── js/logic.js              # Validare progres, punctaje și calcule
 │   ├── js/questions.js          # Banca de întrebări
 │   └── icons/icon.svg           # Pictogramă
 ├── manifest.webmanifest         # Instalare pe ecranul principal
 ├── sw.js                        # Cache pentru utilizare offline
 ├── .nojekyll                    # Publicare statică fără Jekyll
 ├── docs/SURSE-SI-VERIFICARE.md  # Proveniența materialelor
-└── tests/validate-content.js    # Verificări automate fără dependențe
+├── docs/PRE_DEPLOYMENT_AUDIT.md # Rezultatul auditului
+├── docs/CONTENT_REVIEW.md       # Registrul reviziei tuturor întrebărilor
+└── tests/                      # Validare, logică și audit în browser
 ```
 
 ## Publicare pe GitHub Pages
@@ -53,13 +56,27 @@ Deschide `http://localhost:8000/`. Pentru verificarea datelor și a fișierelor:
 
 ```bash
 node tests/validate-content.js
+node tests/test-logic.js
 ```
 
-La publicarea unei versiuni noi, schimbă valoarea `CACHE` din `sw.js` (de exemplu `pregatire-bucatar-v5`), astfel încât browserul să actualizeze fișierele offline.
+Pentru verificarea în browser (opțională la dezvoltare, fără dependențe în aplicație):
+
+```bash
+npm install --prefix /tmp/bucatar-audit-tools --no-audit --no-fund playwright axe-core
+NODE_PATH=/tmp/bucatar-audit-tools/node_modules node tests/browser-audit.js
+```
+
+Scriptul pornește singur un server HTTP local, cu `/pregatire-bucatar/`, și folosește Chrome din `/usr/bin/google-chrome`. Pentru alt executabil, setează `CHROME_PATH`. Capturile și rezultatele accesibilității se scriu în `/tmp/bucatar-audit-artifacts` (sau `AUDIT_ARTIFACTS`). Testul simulează trecerea timpului; nu așteaptă 30 de minute.
+
+La fiecare modificare a fișierelor aplicației, schimbă `VERSION` din `sw.js`. Toate resursele necesare sunt salvate împreună într-un cache separat pe calea aplicației. O versiune nouă se activează când utilizatorul apasă „Actualizează aplicația” sau după închiderea filelor vechi. Actualizarea păstrează progresul și sesiunea în curs; nu reîncarcă automat un examen fără alegerea utilizatorului. Dacă descărcarea noilor fișiere eșuează, versiunea instalată rămâne utilizabilă. Nu publica fișierele incomplet.
 
 ## Progres și confidențialitate
 
-Datele testelor sunt salvate prin `localStorage` **doar în browserul utilizatorului**. Nu sunt transmise unui server și nu se sincronizează între telefoane. Ștergerea datelor browserului poate elimina progresul.
+Datele testelor sunt salvate prin `localStorage` **doar în browserul utilizatorului**, într-o cheie separată pentru calea aplicației. Progresul din versiunea inițială este importat automat la prima deschidere. Nu sunt transmise unui server și nu se sincronizează între telefoane. Ștergerea datelor browserului poate elimina progresul. Dacă stocarea este blocată sau plină, aplicația afișează un mesaj și permite în continuare exersarea.
+
+Sesiunile de învățare și simulările se reiau după reîncărcare. Timpul examenului continuă când pagina este închisă; o simulare expirată este corectată la redeschidere. Ieșirea explicită încheie sesiunea curentă; răspunsurile deja exersate în modul de învățare rămân în progres. După părăsirea rezultatului, se păstrează scorul și greșelile, nu întreaga pagină de corectare. Folosește o singură filă pentru studiu: modificările simultane din mai multe file nu sunt sincronizate.
+
+Modul offline este gata după mesajul de confirmare din pagină, pe HTTPS sau localhost. PDF-urile și site-urile externe necesită internet și nu sunt descărcate automat. Browserul poate elimina cache-ul sau datele locale; o primă vizită fără internet nu este suficientă. Nu sunt folosite analytics, reclame, conturi, cookie-uri sau servicii de colectare a progresului. Site-urile externe au propriile politici când sunt deschise.
 
 ## Materiale și drepturi
 
